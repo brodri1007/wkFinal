@@ -6,77 +6,81 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CarShopService from '../services/CarShopService';
 
-export default function ModalSchedule(props, { carList, setCarList }) {
+export default function ModalSchedule({carid, carList, setCarlist}) {
 
    console.log(" carList: " +  JSON.stringify(carList) )
+   console.log(" setCarList: " +  setCarlist )
     
-    const service = new CarShopService();
+   const service = new CarShopService();
 
-  //   const AddAppointment = () => {
-  //   const [appointments, setAppointments] = useState([]);
-  //   const [newAppointment, setNewAppointment] = useState({ email: '', name: '', date: '' });
-  //   const [message, setMessage] = useState('');
+   const car_id = carid;
+   let singleCar = carList.filter(car => car.id !== car_id);
 
-  //   const handleInputChange = (e) => {
-  //     const { name, value } = e.target;
-  //     setNewAppointment({ ...newAppointment, [name]: value });
-  //   };
+   const [singleCarList, setSingleCarList] = useState({singleCar});
+   const [newAppointment, setNewAppointment] = useState({ email: '', name: '', date: '' });
+   singleCarList.push(newAppointment);
+   setCarlist(...carList, singleCarList); 
   
-  //   const addAppointment = async (e) => {
-  //     e.preventDefault();
-  //     try {
-  //       const response = await fetch('https://api.example.com/appointments', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(newAppointment),
-  //       });
+
+    const AddAppointment = () => {
+      
+    const [appointment, setAppointment] = useState([]);    
+    const [message, setMessage] = useState('');
+
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setNewAppointment({ ...newAppointment, [name]: value });
+    };
   
-  //       if (response.ok) {
-  //         const addedAppointment = await response.json();
-  //         setAppointments([...appointments, addedAppointment]);
-  //         setMessage('Appointment added successfully!');
-  //         setNewAppointment({ email: '', name: '', date: '' }); // Clear form
-  //       } else {
-  //         setMessage('Failed to add appointment');
-  //       }
-  //     } catch (error) {
-  //       setMessage('Failed to add appointment');
-  //       console.error('Error adding appointment:', error);
-  //     }
-  //   }
-  // }
+    const addAppointment = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await fetch("https://6659cc10de346625136df8bb.mockapi.io/car/" + {carid}, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newAppointment),
+        });
+  
+        if (response.ok) {
+          const addedAppointment = await response.json();
+          setAppointments([...appointments, addedAppointment]);
+          setMessage('Appointment added successfully!');
+          setNewAppointment({ email: '', name: '', date: '' }); // Clear form
+        } else {
+          setMessage('Failed to add appointment');
+        }
+      } catch (error) {
+        setMessage('Failed to add appointment');
+        console.error('Error adding appointment:', error);
+      }
+    }
+  }
  
-
-  let id = props.carid;
-  let model = props.model;
-  let miles = props.miles;
-  let year = props.year;
-  let brand = props.brand;
-  let price = props.price;
-  let appointment = props.appointment;
-  let email = appointment.email;
-  let name = appointment.name;
-  let date = appointment.date;
-
-  const [show, setShow] = useState(false);
+//data: JSON.stringify(data), contentType: "application/json; charset=utf-8" : http://pro.jsonlint.com/
+//Provide the id and the object, second, in backend fetch by the provided id, then construct your new object finally do an update 
+  
+const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [formData, setFormData] = useState({
+ 
 
-    id: id,
-    model: model,
-    miles: miles,
-    year: year,
-    brand: brand,
-    price: price,
+
+const [formData, setFormData] = useState({
+
+    id: "",
+    model: "",
+    miles: "",
+    year: "",
+    brand: "",
+    price: "",
     appointment: [
       {
-        "email": email,
-        "name": name,
-        "date": date
+        "email": "",
+        "name": "",
+        "date": ""
       }
     ]   
 
@@ -105,7 +109,7 @@ export default function ModalSchedule(props, { carList, setCarList }) {
     console.log('Form Data:', formData);
     service.updateCar(id, formData);
 
-    setCarList([...carList, formData]);
+    //setCarList([...carList, formData]);
    
      
 
@@ -128,14 +132,14 @@ export default function ModalSchedule(props, { carList, setCarList }) {
           <Form>
             <Form.Group className="mb-3" >
               <div>
-                <span>{id}</span>
-                <img alt={model} src={require("./car.png")} width="450px" />
+                <span>{}</span>
+                <img src={require("./car.png")} width="450px" />
               </div>
-              <span>Brand-Model: {brand} {model}</span>
+              <span>Brand-Model: {} {}</span>
               <br />
-              <span>Miles: {miles}</span><br />
-              <span>Year: {year.substring(0, 4)}</span><br />
-              <span>Price: {price}</span><br /><br />
+              <span>Miles: {}</span><br />
+              <span>Year: {}</span><br />
+              <span>Price: {}</span><br /><br />
 
             </Form.Group>
             <Form.Group className="mb-3" >
@@ -144,7 +148,7 @@ export default function ModalSchedule(props, { carList, setCarList }) {
                 <input
                   type="email"
                   name="email"
-                  value={formData.email}
+                  value={''}
                   onChange={handleChange}
                 />
               </label>
@@ -179,7 +183,7 @@ export default function ModalSchedule(props, { carList, setCarList }) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={e => handleSubmit(e, id)}>
+          <Button variant="primary" onClick={e => handleSubmit(e)}>
             Schedule Now
           </Button>
         </Modal.Footer>
