@@ -26,7 +26,7 @@ const BuyACar = ({ carList, setCarList }) => {
             <div key={i} className="col p-3 border bg-light">
               {car.model}       
            <Col className='d-md-flex' > </Col>
-        <ModalSchedule carlist={carList} id={car.id} setCarlist={setCarList}/>
+        <ModalSchedule car={car} setCarList={setCarList}/>
            <button onClick={(e) => handleDelete(car.id)} className="btn">🗑</button>
         </div>  
           ))}
