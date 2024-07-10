@@ -9,7 +9,8 @@ import BuyACar from '../src/components/BuyACar';
 import SellACar from '../src/components/SellACar';
 import DetailsPage from '../src/components/DetailsPage';
 import { Routes, Route } from 'react-router-dom'
-import ModalSchedule from './components/ModalSchedule';
+import './App.css';
+
 
 
 const App = () => {

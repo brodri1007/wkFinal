@@ -9,127 +9,134 @@ import CarShopService from '../services/CarShopService';
 
 
 
-export default function ModalSchedule({ car, setCarList}) {
+export default function ModalSchedule({ car, setCarList, getCars}) {
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [date, setDate] = useState("")
+
+
   
   
-  let updatedCarList = [];
+  
   const updateItem = (id, newApp) => {
-    setCarList((prevItems) => prevItems.map((item) => item.id === car.id ? {newApp}: item))
+    setCarList((prevItems) => prevItems.map((item) => item.id === id ? {newApp}: item))
+  
   }
 
   const handleTestDriveAppt = (e) => {
+
     e.preventDefault()
-let newApp = 
-   {
-    id :car.id,
-    model: car.model,
-    brand: car.brand,
-    year: car.year,
-    price: car.price,
-    miles: car.miles,
-    sellerid: car.sellerid,
-    appointment: car.appointment ? [...car.appointment, {email:email, name:name, date:date}] : [],
 
-}
+    let newApp =
+    {
+      id: car.id,
+      model: car.model,
+      brand: car.brand,
+      year: car.year,
+      price: car.price,
+      miles: car.miles,
+      sellerid: car.sellerid,
+      appointment: car.appointment ? [...car.appointment, { email: email, name: name, date: date }] : [],
+    }
 
-    //const updatedCarList = carList.filter(car => car.id === id);
-    let service = new CarShopService()
-    updateItem(car.id, newApp)
-    console.log(car);
-    service.updateCar(car.id, newApp )
+
+    let service = new CarShopService();     
+    service.updateCar(car.id, newApp); 
+    updateItem(car.id, newApp);   
+   //console.log(car);
+    getCars();
+    setEmail("");
+    setName("");
+    setDate("");
+    handleClose();
+    
+
+ 
     
   };
 
 const [show, setShow] = useState(false);
-const handleClose = () => setShow(false);
+const handleClose = () => {
+  getCars();
+  setShow(false);
+}
 const handleShow = () => setShow(true);
 
-const handleDateChange = (date) => {
-  console.log(date)
-  setFormData({
-    ...formData,
-    date,
-  });
- };
-
- console.log(updatedCarList.model);
 
   return (
     <>
-   <Button variant="primary" onClick={handleShow}>
-     More Details
-   </Button>
-<Modal show={show} onHide={handleClose}>
-     <Modal.Header closeButton>
-       <Modal.Title>Test Drive it!</Modal.Title>
-     </Modal.Header>
-     <Modal.Body>
-     <Form>
-         <Form.Group className="mb-3" >
-           <div>
-             <span>{}</span>
-             <img src={require("./car.png")} width="450px" />
-           </div>
-           <span>Brand: {updatedCarList[0] }</span>
-           <span>Model: {} </span>
+      <Button variant="primary" onClick={handleShow}>
+        New appointment
+      </Button>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Test Drive it!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" >
+              <div>
+                <span>{car.id}</span>
+                <img alt={car.model} src={require("./car.png")} width="450px" />
+              </div>
+              <span>Brand: {car.brand}</span>
+              <span>Model: {car.model} </span> <br />
+              <span>Miles: { car.miles}</span><br />
+              <span>Year: {car.year }</span><br />
+              <span>Price: {car.price }</span><br /><br />
 
-           <br />
-           <span>Miles: {}</span><br />
-           <span>Year: {}</span><br />
-           <span>Price: {}</span><br /><br />
+            </Form.Group>
 
-         </Form.Group>
-      
-      <button className='btn btn-primary' >{car.id}</button>
-      <Form.Group className="mb-3" >
-           <label>
-             Email:
-             <input
-               type="email"
-               name="email"
-              
-               onChange={(e) => setEmail(e.target.value)}
-             
-             />
-           </label>
-         </Form.Group>
+            <button className='btn btn-primary' >{car.id}</button>
+            <Form.Group className="mb-3" >
+              <label>
+                Email:
+                <input
+                  type="email"
+                  name="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                />
+              </label>
+            </Form.Group>
 
-         <Form.Group className="mb-3" >
-           <label>
-             Name:
-             <input
-               type="text"
-               name="name"
-               onChange={(e) => setName(e.target.value)}
-             />
-           </label>
+            <Form.Group className="mb-3" >
+              <label>
+                Name:
+                <input
+                  type="text"
+                  name="name"
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
+                />
+              </label>
 
-         </Form.Group>
+            </Form.Group>
 
-         <Form.Group className="mb-3">
-           <label>
-             Date:
-             <DatePicker
-           selected={date}
-           onChange={(date) => setDate(date)}
-           showTimeSelect
-             />
-           </label>
-         </Form.Group>
-       </Form>
-      </Modal.Body>
-     <Modal.Footer>
-       <Button variant="secondary" onClick={handleTestDriveAppt}>
-         Close
-       </Button>
-       <Button variant="primary" onClick={e => handleTestDriveAppt(e)}>
-         Schedule Now
-       </Button>
-     </Modal.Footer>
-   </Modal>
+            <Form.Group className="mb-3">
+              <label>
+                Date:
+                <DatePicker
+                  selected={date}
+                  onChange={(date) => setDate(date)}
+                  showTimeSelect
+                  dateFormat="Pp"
+                  showIcon="true"
+                />
+              </label>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={e => handleTestDriveAppt(e)}>
+            Schedule Now
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
     </>
 

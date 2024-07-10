@@ -1,182 +1,75 @@
-console.log(" carList: " +  JSON.stringify(carList) )
-console.log(" setCarList: " +  setCarlist )
- 
-const service = new CarShopService();
-
-const car_id = carid;
-let singleCar = carList.filter(car => car.id !== car_id);
-
-const [singleCarList, setSingleCarList] = useState({singleCar});
-const [newAppointment, setNewAppointment] = useState({ email: '', name: '', date: '' });
-singleCarList.push(newAppointment);
-setCarlist(...carList, singleCarList); 
-
-
- const AddAppointment = () => {
-
- const [appointment, setAppointment] = useState([]);    
- const [message, setMessage] = useState('');
-
- const handleInputChange = (e) => {
-   const { name, value } = e.target;
-   setNewAppointment({ ...newAppointment, [name]: value });
- };
-
- const addAppointment = async (e) => {
-   e.preventDefault();
-   try {
-     const response = await fetch("https://6659cc10de346625136df8bb.mockapi.io/car/" + {carid}, {
-       method: 'POST',
-       headers: {
-         'Content-Type': 'application/json',
-       },
-       body: JSON.stringify(newAppointment),
-     });
-
-     if (response.ok) {
-       const addedAppointment = await response.json();
-       // setAppointments([...appointments, addedAppointment]);
-       // setMessage('Appointment added successfully!');
-       setNewAppointment({ email: '', name: '', date: '' }); // Clear form
-     } else {
-       setMessage('Failed to add appointment');
-     }
-   } catch (error) {
-     setMessage('Failed to add appointment');
-     console.error('Error adding appointment:', error);
-   }
- }
-}
-
-//data: JSON.stringify(data), contentType: "application/json; charset=utf-8" : http://pro.jsonlint.com/
-//Provide the id and the object, second, in backend fetch by the provided id, then construct your new object finally do an update 
-
-const [show, setShow] = useState(false);
-const handleClose = () => setShow(false);
-const handleShow = () => setShow(true);
+import { React, useEffect } from 'react'
+import CarShopService from '../services/CarShopService';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { Button } from 'react-bootstrap';
+import Container from 'react-bootstrap/esm/Container';
+import ModalSchedule from './ModalSchedule';
 
 
 
-
-const [formData, setFormData] = useState({
-
- id: "",
- model: "",
- miles: "",
- year: "",
- brand: "",
- price: "",
- appointment: [
-   {
-     "email": "",
-     "name": "",
-     "date": ""
-   }
- ]   
-
-});
-
-
-
-const handleChange = (e) => {
- const { name, value } = e.target;
- setFormData({
-   ...formData,
-   [name]: value,
- });
-};
-
-const handleDateChange = (date) => {
- setFormData({
-   ...formData,
-   date,
- });
-};
-
-const handleSubmit = (e, id) => {
- e.preventDefault();
-
- console.log('Form Data:', formData);
- service.updateCar(id, formData);
-
- //setCarList([...carList, formData]);
-
+const BuyACar = ({ carList, setCarList, getCars }) => {
   
 
- handleClose();
+
+  const service = new CarShopService();
+
+
+
+  const handleDelete = (id) => {
+    const updatedCarList = carList.filter(car => car.id !== id);
+    setCarList(updatedCarList);   
+    service.deleteCar(id);
+  };
+
+
+ 
+ //console.log(JSON.stringify(carList))
+
+  return (
+    <div className="App">     
+        <div className='header'><h1>The Car Shop</h1>
+        <p>Select from our inventory below:</p></div>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+ 
+        {carList?.map((car,i) => (
+            
+            <div class="card-group">
+               <div class="card">
+                <div class="card-body">
+                        <div key={i}><br></br>
+                            <span>{car.id}</span><br></br>
+                            <img alt={car.model} src={require("./car.png")} width="150px" /><br></br><br></br>
+                            Brand: {car.brand}  <br></br>
+                            Model: {car.model}  <br></br>
+                            Yaar: {car.year}  <br></br>
+                            Miles:  {car.miles}  <br></br>
+                            Price:  ${car.price}      <br></br><br></br>
+                        </div>
+            </div>
+           <div className='card p-3 border'> 
+           <div class="card-footer"></div>
+          <div className='appointments'><p className='fw-normal fs-4 text'> Appointments</p> 
+          <ul>
+           {car.appointment?.map((appt, i) => (
+             <li key={i}> {appt.date.substring(5, 7) + "/" + appt.date.substring(8, 10) + " @ " + appt.date.substring(16, 11) + " PM"}  </li>
+           ))}
+           </ul>
+           </div>
+           
+           
+           </div>
+           <br></br> 
+           <ModalSchedule car={car} setCarList={setCarList} getCars={getCars}/>    
+            <spam>  </spam> <Button variant="primary" onClick={(e) => handleDelete(car.id)}>🗑 Car </Button>
+            </div>
+        </div>  
+      </div>
+      
+    </div>
+  );
 };
 
+export default BuyACar;
 
 
-return (
- <>
-   <Button variant="primary" onClick={handleShow}>
-     More Details
-   </Button>
-
-   <Modal show={show} onHide={handleClose}>
-     <Modal.Header closeButton>
-       <Modal.Title>Test Drive it!</Modal.Title>
-     </Modal.Header>
-     <Modal.Body>
-       <Form>
-         <Form.Group className="mb-3" >
-           <div>
-             <span>{}</span>
-             <img src={require("./car.png")} width="450px" />
-           </div>
-           <span>Brand-Model: {} {}</span>
-           <br />
-           <span>Miles: {}</span><br />
-           <span>Year: {}</span><br />
-           <span>Price: {}</span><br /><br />
-
-         </Form.Group>
-         <Form.Group className="mb-3" >
-           <label>
-             Email:
-             <input
-               type="email"
-               name="email"
-               value={''}
-               onChange={handleChange}
-             />
-           </label>
-         </Form.Group>
-
-         <Form.Group className="mb-3" >
-           <label>
-             Name:
-             <input
-               type="text"
-               name="name"
-               value={formData.name}
-               onChange={handleChange}
-             />
-           </label>
-
-         </Form.Group>
-
-         <Form.Group className="mb-3">
-           <label>
-             Date:
-             <DatePicker
-               selected={formData.date}
-               onChange={handleDateChange}
-               showTimeSelect
-             />
-           </label>
-         </Form.Group>
-       </Form>
-     </Modal.Body>
-     <Modal.Footer>
-       <Button variant="secondary" onClick={handleClose}>
-         Close
-       </Button>
-       <Button variant="primary" onClick={e => handleSubmit(e)}>
-         Schedule Now
-       </Button>
-     </Modal.Footer>
-   </Modal>
- </>
-);

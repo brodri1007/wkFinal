@@ -35,9 +35,7 @@ export default class CarShopService {
         body: JSON.stringify(data),
       });
   
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+
   
       let json = await response.json();
       return json;

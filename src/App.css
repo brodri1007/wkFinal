@@ -1,4 +1,10 @@
 .App {
+  
+  padding-top: 60px;
+}
+
+
+.header {
   text-align: center;
 }
 
@@ -27,7 +33,7 @@ ul li {
 
 
 .appointments {
-  display: flex;
+  background-color: #ffffff;
   justify-content: center;
   align-items: center;
 }
