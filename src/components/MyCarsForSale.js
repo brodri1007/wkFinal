@@ -7,8 +7,9 @@ import Container from 'react-bootstrap/esm/Container';
 
 
 
-export default function MyCarsForSale () {
-    const [carList, setCarList] = useState([]);
+export default function MyCarsForSale ({myCarList}) {
+
+
     const service = new CarShopService();
 
 
@@ -20,7 +21,8 @@ export default function MyCarsForSale () {
         <div><h1 className="header">Your Cars</h1></div>
         <p>Enter a car's information to list it in the shop.</p>
           <Row>
-            {carList?.map((car) => (
+            {console.log(JSON.stringify(myCarList))}
+            {myCarList?.map((car) => (
               <Col md="auto" key={car.id} className='d-md-flex'>
                 <div className="car-card">
                   <div className="col p-3 border bg-light">
@@ -33,7 +35,7 @@ export default function MyCarsForSale () {
                     <span>Miles: {car.miles}</span><br />
                     <span>Year: {car.year.substring(0, 4)}</span><br />
                     <span>Price: {car.price}</span><br /><br />
-                    <Button className="btn">Schedule Test Drive</Button>
+                    <Button className="btn">List for Sale</Button>
                     <br></br>
 
                     <br></br>

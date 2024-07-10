@@ -5,9 +5,6 @@ const baseUrl = "https://6659cc10de346625136df8bb.mockapi.io/car";
 
 export default class CarShopService {
 
-
-
-
   constructor(url) {
     this.url = url || baseUrl;
   }
@@ -33,9 +30,7 @@ export default class CarShopService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-      });
-  
-
+      }); 
   
       let json = await response.json();
       return json;
@@ -47,23 +42,23 @@ export default class CarShopService {
   }
 
 
+   /**
+   * Adds a car to be listed for sale.
+   * @param {object} car The car to be added.
+   */
 
-
- 
-
-  async addCar() {
+  async addCar(car) {
     let url = `${ this.url }`;
-    //console.log(`Fetching details for car id ${ country }`);
     let response = await fetch(url);
     let json = await response.json();
     return json;
   }
 
    /**
-   * Retrieves all cars listed.
-   * @param {String} car The unique id of the country.
+   * Retrieves car with the specidied id.
+   * @param {String} id The unique id of the car.
    */
-   async getCars(id) {
+   async getCar(id) {
     let url = `${ this.url }/${ id }`;
     console.log(`Fetching details for car id ${ id }`);
 
@@ -77,10 +72,12 @@ export default class CarShopService {
     let json = await response.json();
     return json;
   }
-
+   /**
+   * Deletes the car requested.
+   * @param {String} id The id of the car to be deleted.
+   */
 
   async deleteCar(id) {
-
 
     const requestOptions = {
       method: "DELETE",

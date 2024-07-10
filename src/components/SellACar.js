@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import MyCarsForSale from './MyCarsForSale';
+import CarShopService from '../services/CarShopService';
 
 const API_URL = "https://6659cc10de346625136df8bb.mockapi.io/cars/car";
 
@@ -15,8 +16,16 @@ const [miles, setMiles] = useState("")
 const [year, setYear] = useState("")
 const [price, setPrice] = useState("")
 
+const [myCarList, setmyCarList] = useState([
+  {model: "Honda",
+  brand: "Accord",
+  year :"2017",
+  price: "23000",
+  miles: "25654",
+  id: "1"}
+]);
 
-
+const service = new CarShopService();
 
 const [formValues, setFormValues] = useState({
     id: '', 
@@ -42,40 +51,30 @@ const [formValues, setFormValues] = useState({
   const handleSubmit = (event) => {
 
     event.preventDefault();
-   //Need to be able to not submit if there is no car data in the form  -----  if(!formValues.brand === null) {
-// FINISH OUT OBJECT BELOW AFTER MAKING EACH STATE
-   let newCar = {
-    id: id,
+    // let updatedList = [];
+    //  updatedList = [...formValues]
 
-   }
+    setmyCarList(...myCarList, formValues); 
+
+
+        setFormValues({  
+          id:'',    
+          brand: '',
+          model: '',
+          miles: '',
+          year: '',               
+          price: ''
+        }) 
+
+
+  
+//Need to be able to not submit if there is no car data in the form  -----  if(!formValues.brand === null) {
+// FINISH OUT OBJECT BELOW AFTER MAKING EACH STATE
+
+  
 
    //Declare request options for API fetch
-    const requestOptions = {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formValues)
-    };
 
-    //fecth cars from  API adding new car entry
-    fetch(API_URL, requestOptions)
-      .then(async response => {
-       
-
-        //Call function to re-render ui
-        //handleClick();
-      })
-      .catch(error => {
-        console.error("There was an error!", error);
-      });
-
-      setFormValues({  
-        id:'',    
-        brand: '',
-        model: '',
-        miles: '',
-        year: '',               
-        price: ''
-      }) 
 
     // }else {
     //     alert("Please enter the car's infomation to continue.")
@@ -152,10 +151,13 @@ const [formValues, setFormValues] = useState({
                         </div>
                         <button type="submit">Add a Car</button>
                     </form>
+
+             
+
                     </div>
                 </div>
                 </Container><br></br><br></br>
-                <MyCarsForSale/>
+                <MyCarsForSale myCarList={myCarList}/>
             
         </div>
             )   
