@@ -3,167 +3,146 @@ import Container from 'react-bootstrap/Container';
 import MyCarsForSale from './MyCarsForSale';
 import CarShopService from '../services/CarShopService';
 
-const API_URL = "https://6659cc10de346625136df8bb.mockapi.io/cars/car";
 
 
-function SellACar ({carList, setCarList}) {
-//set state for formValues
-
-const [id, setId] = useState("")
-const [brand, setBrand] = useState("")
-const [model, setModel] = useState("")
-const [miles, setMiles] = useState("")
-const [year, setYear] = useState("")
-const [price, setPrice] = useState("")
-
-const [myCarList, setmyCarList] = useState([
-  {model: "Honda",
-  brand: "Accord",
-  year :"2017",
-  price: "23000",
-  miles: "25654",
-  id: "1"}
-]);
-
-const service = new CarShopService();
-
-const [formValues, setFormValues] = useState({
-    id: '', 
-    brand: '',
-    model: '',
-    miles: '',
-    year: '',               
-    price: ''
+function SellACar({ carList, setCarList }) {
+  const [formValues, setFormValues] = useState({
+    id: "",
+    brand: "",
+    model: "",
+    miles: "",
+    year: "",
+    price: "",
+    sellerId: "0938773"
   });
 
+  const [myCarList, setMyCarList] = useState([
+    {
+      model: "Accord",
+      brand: "Honda",
+      year: "2017",
+      price: "23000",
+      miles: "25654",
+      id: "1",
+      sellerId: "0938773"
+    }
+  ]);
 
-  //Set values in the formValues array based on form field's names
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setFormValues({
       ...formValues,
       [name]: value
     });
   };
 
-
-
   const handleSubmit = (event) => {
-
     event.preventDefault();
-    // let updatedList = [];
-    //  updatedList = [...formValues]
 
-    setmyCarList(...myCarList, formValues); 
-
-
-        setFormValues({  
-          id:'',    
-          brand: '',
-          model: '',
-          miles: '',
-          year: '',               
-          price: ''
-        }) 
-
-
-  
-//Need to be able to not submit if there is no car data in the form  -----  if(!formValues.brand === null) {
-// FINISH OUT OBJECT BELOW AFTER MAKING EACH STATE
-
-  
-
-   //Declare request options for API fetch
-
-
-    // }else {
-    //     alert("Please enter the car's infomation to continue.")
+    if (!formValues.brand || !formValues.model || !formValues.miles || !formValues.year || !formValues.price) {
+      alert("Please enter the car's information to continue.");
+      return;
     }
 
-  
-    return (
-        <div className="App">   
+    setMyCarList([...myCarList, formValues]);
+    setFormValues({
+      id: "",
+      brand: "",
+      model: "",
+      miles: "",
+      year: "",
+      price: "",
+      sellerId: ""
+    });
 
-                <Container>
-                    <h1>Sell your car with us</h1>
-                    <p>There Carshop will find a buyer for your car in less than 24 hours, Guarantee!</p>
-                    <span>Enter your car's infomation below and let our super smart engine find a buyer.</span>
-                <div className='row'>
-                    <div className='col'>
-                    <form onSubmit={handleSubmit}>
-                    <div>
-                    <input
-                            type="hidden"
-                            id="id"
-                            name="id"
-                            value={formValues.id}
-                            onChange={(e) => setId(e.target.value)}
-                        />
-                        <label htmlFor="brand"></label>
-                        <input
-                        placeholder='Enter the brand'
-                            type="text"
-                            id="brand"
-                            name="brand"
-                            value={formValues.brand}
-                            onChange={handleChange}
-                        />
-                    
-                        <label htmlFor="model"></label>
-                        <input
-                        placeholder='Enter the model'
-                            type="text"
-                            id="model"
-                            name="model"
-                            value={formValues.model}
-                            onChange={handleChange}
-                        />
-                    
-                        
-                        <input
-                        placeholder='How many miles'
-                            type="text"
-                            id="miles"
-                            name="miles"
-                            value={formValues.miles}
-                            onChange={handleChange}
-                        />
-                    
-                        
-                        <input
-                        placeholder='Enter the Year'
-                            type="text"
-                            id="year"
-                            name="year"
-                            value={formValues.year}
-                            onChange={handleChange}
-                        />
-                    
-                        
-                        <input
-                        placeholder='Enter a price'
-                            type="text"
-                            id="price"
-                            name="price"
-                            value={formValues.price}
-                            onChange={handleChange}
-                        />
-                        </div>
-                        <button type="submit">Add a Car</button>
-                    </form>
+    //console.log(myCarList);
 
-             
+    // API call can be added here if needed
+    // fetch(API_URL, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(formValues),
+    // });
+  };
 
-                    </div>
-                </div>
-                </Container><br></br><br></br>
-                <MyCarsForSale myCarList={myCarList}/>
-            
+  return (
+    <div className="App">
+      <Container>
+        <h1>Sell your car with us</h1>
+        <p>Carshop will find a buyer for your car in less than 24 hours, guaranteed!</p>
+        <span>Enter your car's information below and let our super smart engine find a buyer.</span>
+        <div className='row'>
+          <div className='col'>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <input
+                  type="hidden"
+                  id="id"
+                  name="id"
+                  value={myCarList.id++}
+                />
+                <input
+                  type="hidden"
+                  id="sellerId"
+                  name="sellerId"
+                  value={"0938773"}
+                />
+                <label htmlFor="brand"></label>
+                <input
+                  placeholder='Enter the brand'
+                  type="text"
+                  id="brand"
+                  name="brand"
+                  value={formValues.brand}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="model"></label>
+                <input
+                  placeholder='Enter the model'
+                  type="text"
+                  id="model"
+                  name="model"
+                  value={formValues.model}
+                  onChange={handleInputChange}
+                />
+                <input
+                  placeholder='How many miles'
+                  type="text"
+                  id="miles"
+                  name="miles"
+                  value={formValues.miles}
+                  onChange={handleInputChange}
+                />
+                <input
+                  placeholder='Enter the Year'
+                  type="text"
+                  id="year"
+                  name="year"
+                  value={formValues.year}
+                  onChange={handleInputChange}
+                />
+                <input
+                  placeholder='Enter a price'
+                  type="text"
+                  id="price"
+                  name="price"
+                  value={formValues.price}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <button type="submit">Add a Car</button>
+            </form>
+          </div>
         </div>
-            )   
-    
-        
-};
+      </Container>
+      <br /><br />
+      <MyCarsForSale myCarList={myCarList} />
+    </div>
+  );
+}
 
 export default SellACar;
-

@@ -56,7 +56,7 @@ const BuyACar = ({ carList, setCarList, getCars }) => {
            <br></br> 
            <ModalSchedule car={car} setCarList={setCarList} getCars={getCars}/>
     
-            <spam>  </spam> <Button variant="primary" onClick={(e) => handleDelete(car.id)}>🗑 Car </Button>
+           <Button variant="primary" onClick={(e) => handleDelete(car.id)}>🗑 Car </Button>
         </div>  
           ))}
           

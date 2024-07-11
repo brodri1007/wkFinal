@@ -48,10 +48,17 @@ export default class CarShopService {
    */
 
   async addCar(car) {
+
     let url = `${ this.url }`;
-    let response = await fetch(url);
-    let json = await response.json();
-    return json;
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(car),
+    });
+
+    
   }
 
    /**

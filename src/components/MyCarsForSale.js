@@ -5,23 +5,22 @@ import Row from 'react-bootstrap/Row';
 import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/esm/Container';
 
-
-
 export default function MyCarsForSale ({myCarList}) {
 
+  function ListForSale(car) {
+    let service = new CarShopService();
+    service.addCar(car);
+  }
 
-    const service = new CarShopService();
 
 
-   
-
-    return (
+  return (
 
         <Container>
         <div><h1 className="header">Your Cars</h1></div>
         <p>Enter a car's information to list it in the shop.</p>
           <Row>
-            {console.log(JSON.stringify(myCarList))}
+      
             {myCarList?.map((car) => (
               <Col md="auto" key={car.id} className='d-md-flex'>
                 <div className="car-card">
@@ -30,20 +29,17 @@ export default function MyCarsForSale ({myCarList}) {
                       <span>{car.id}</span>
                       <img alt={car.model} src={require("./car.png")} width="150px" />
                     </div>
-                    <span>Brand-Model: {car.brand} {car.model}</span>
-                    <br />
+                    <span>Seller Id: {car.sellerId} </span><br />  
+                    <span>Brand-Model: {car.brand} {car.model}</span><br />                    
                     <span>Miles: {car.miles}</span><br />
                     <span>Year: {car.year.substring(0, 4)}</span><br />
                     <span>Price: {car.price}</span><br /><br />
-                    <Button className="btn">List for Sale</Button>
-                    <br></br>
-
+                    <Button className="btn" onClick={(e) => ListForSale(car)}>List for Sale</Button>
                     <br></br>
                     <Col> </Col>
                   </div>
                   <br></br><br></br>
-                </div>
-  
+                </div>  
               </Col>
             )
             )}
