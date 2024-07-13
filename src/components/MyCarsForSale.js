@@ -12,9 +12,11 @@ export default function MyCarsForSale({ carList, setCarList, getCars }) {
   const service = new CarShopService();
 
   const handleDelete = (id) => {
-    const updatedCarList = carList.filter(car => car.id !== id);
-    setCarList(updatedCarList);
+    //const updatedCarList = carList.filter(car => car.id !== id);
+   //setCarList(updatedCarList);
+   
     service.deleteCar(id);
+    getCars();
   };
 
 
@@ -61,8 +63,7 @@ export default function MyCarsForSale({ carList, setCarList, getCars }) {
                   </Button>
                     <Button
                       className="btn"
-                      onClick={() => toggleView(car.id)}
-                    >
+                      onClick={() => toggleView(car.id)}                    >
                       Edit
                     </Button>
                   </div>

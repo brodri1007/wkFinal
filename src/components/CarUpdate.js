@@ -37,7 +37,7 @@ export default function CarUpdate({ handleClick, car, toggleView, getCars }) {
     <Container>
       <div className='row' id={id}>
         <div className='col'>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div>
               <input
                 type="hidden"
@@ -94,7 +94,7 @@ export default function CarUpdate({ handleClick, car, toggleView, getCars }) {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
-            <Button type="submit" className="btn">Update Car</Button>
+            <Button onClick={(e) => handleSubmit(e)} className="btn">Update Car</Button>
             <Button className="btn" onClick={() => toggleView(car.id)}>Close</Button>
           </form>
         </div>

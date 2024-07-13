@@ -10,9 +10,10 @@ function CarCard({ car, getCars, setCarList, carList }) {
     const service = new CarShopService();
 
     const handleDelete = (id) => {
-        const updatedCarList = carList.filter(car => car.id !== id);
-        setCarList(updatedCarList);
+        //const updatedCarList = carList.filter(car => car.id !== id);
+       // setCarList(updatedCarList);
         service.deleteCar(id);
+        getCars();
     };
 
 

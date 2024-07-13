@@ -3,9 +3,7 @@ import Container from 'react-bootstrap/Container';
 import MyCarsForSale from './MyCarsForSale';
 import CarShopService from '../services/CarShopService';
 
-function SellACar({ carList, setCarList, getCars }) {
-  
-  
+function SellACar({ carList, setCarList, getCars }) {  
       
   const service = new CarShopService();
 
@@ -38,6 +36,7 @@ function SellACar({ carList, setCarList, getCars }) {
 
     service.addCar(newCar);
     setCarList([...carList, newCar]);
+    getCars();
 
     // Clear form fields
     setId("");

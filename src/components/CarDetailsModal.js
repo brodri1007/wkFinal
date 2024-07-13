@@ -20,16 +20,17 @@ function CarDetailsModal({ car, getCars, setCarList }) {
    
 
   const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+
   const handleClose = () => {
     getCars();
     setShow(false);
   }
-  const handleShow = () => setShow(true);
   
   
   const updateItem = (id, newApp) => {
     setCarList((prevItems) => prevItems.map((item) => item.id === id ? {newApp}: item))
-  
+    getCars();
   }
 
   const handleTestDriveAppt = (e) => {
@@ -48,11 +49,9 @@ function CarDetailsModal({ car, getCars, setCarList }) {
       appointment: car.appointment ? [...car.appointment, { email: email, name: name, date: date }] : [],
     }
 
-
     let service = new CarShopService();     
     service.updateCar(car.id, newApp); 
-    updateItem(car.id, newApp);   
-   //console.log(car);
+    updateItem(car.id, newApp); 
     getCars();
     setEmail("");
     setName("");
@@ -65,7 +64,7 @@ function CarDetailsModal({ car, getCars, setCarList }) {
 <>
     <Button variant="primary" onClick={handleShow}>
     Car Details
-         </Button>
+    </Button>
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
         <Modal.Title>{car.model}</Modal.Title>
