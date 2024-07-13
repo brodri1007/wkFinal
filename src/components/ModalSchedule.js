@@ -5,23 +5,28 @@ import Modal from 'react-bootstrap/Modal';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CarShopService from '../services/CarShopService';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import CarImg from './car.png';
 
 
 
 
-export default function ModalSchedule({ car, setCarList, getCars}) {
+export default function ModalSchedule({ car, setCarList, getCars }) {
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [date, setDate] = useState("")
+  const [date, setDate] = useState("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    getCars();
+    setShow(false);
+  }
+  const handleShow = () => setShow(true);
 
-
-  
-  
-  
   const updateItem = (id, newApp) => {
-    setCarList((prevItems) => prevItems.map((item) => item.id === id ? {newApp}: item))
-  
+    setCarList((prevItems) => prevItems.map((item) => item.id === id ? { newApp } : item))
+
   }
 
   const handleTestDriveAppt = (e) => {
@@ -41,50 +46,46 @@ export default function ModalSchedule({ car, setCarList, getCars}) {
     }
 
 
-    let service = new CarShopService();     
-    service.updateCar(car.id, newApp); 
-    updateItem(car.id, newApp);   
-   //console.log(car);
+    let service = new CarShopService();
+    service.updateCar(car.id, newApp);
+    updateItem(car.id, newApp);
+    //console.log(car);
     getCars();
     setEmail("");
     setName("");
     setDate("");
     handleClose();
-    
-
- 
-    
   };
-
-const [show, setShow] = useState(false);
-const handleClose = () => {
-  getCars();
-  setShow(false);
-}
-const handleShow = () => setShow(true);
-
 
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        New appointment
+        Car Details
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Test Drive it!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <img alt={car.model} className="img-fluid" src={CarImg} width="470px" />
           <Form>
             <Form.Group className="mb-3" >
-              <div>
-                <span>{car.id}</span>
-                <img alt={car.model} src={require("./car.png")} width="450px" />
-              </div>
-              <span>Brand: {car.brand}</span>
-              <span>Model: {car.model} </span> <br />
-              <span>Miles: { car.miles}</span><br />
-              <span>Year: {car.year }</span><br />
-              <span>Price: {car.price }</span><br /><br />
+              <Row>
+                <Col>Brand:</Col>
+                <Col>{car.brand}</Col>
+              </Row>
+              <Row>
+                <Col>Model:</Col>
+                <Col>{car.model}</Col>
+              </Row>
+              <Row>
+                <Col>Brand:</Col>
+                <Col>{car.year}</Col>
+              </Row>
+              <Row>
+                <Col>Model:</Col>
+                <Col>{car.miles}</Col>
+              </Row>
 
             </Form.Group>
 

@@ -10,8 +10,8 @@ export default class CarShopService {
   }
 
   async allCars() {
-    let url = `${ this.url }`;
-   // console.log(`Fetching all cars from ${ url }...`);
+    let url = `${this.url}`;
+    // console.log(`Fetching all cars from ${ url }...`);
     let response = await fetch(url);
     let json = await response.json();
     //console.log(json)
@@ -22,19 +22,19 @@ export default class CarShopService {
   async updateCar(id, data) {
     try {
       let url = `${this.url}/${id}`;
-      //console.log(`Updating details for car id ${id}`);
-  
+      console.log(`Updating details for car id ${id}`);
+
       const response = await fetch(url, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-      }); 
-  
+      });
+
       let json = await response.json();
       return json;
-  
+
     } catch (error) {
       console.error('Failed to update data:', error);
       throw error; // Re-throw the error if needed, or handle it as per your requirement
@@ -42,14 +42,14 @@ export default class CarShopService {
   }
 
 
-   /**
-   * Adds a car to be listed for sale.
-   * @param {object} car The car to be added.
-   */
+  /**
+  * Adds a car to be listed for sale.
+  * @param {object} car The car to be added.
+  */
 
   async addCar(car) {
 
-    let url = `${ this.url }`;
+    let url = `${this.url}`;
     fetch(url, {
       method: 'POST',
       headers: {
@@ -58,31 +58,31 @@ export default class CarShopService {
       body: JSON.stringify(car),
     });
 
-    
+
   }
 
-   /**
-   * Retrieves car with the specidied id.
-   * @param {String} id The unique id of the car.
-   */
-   async getCar(id) {
-    let url = `${ this.url }/${ id }`;
-    console.log(`Fetching details for car id ${ id }`);
+  /**
+  * Retrieves car with the specidied id.
+  * @param {String} id The unique id of the car.
+  */
+  async getCar(id) {
+    let url = `${this.url}/${id}`;
+    console.log(`Fetching details for car id ${id}`);
 
     const requestOptions = {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify([])
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify([])
     };
 
     let response = await fetch(url, requestOptions);
     let json = await response.json();
     return json;
   }
-   /**
-   * Deletes the car requested.
-   * @param {String} id The id of the car to be deleted.
-   */
+  /**
+  * Deletes the car requested.
+  * @param {String} id The id of the car to be deleted.
+  */
 
   async deleteCar(id) {
 
@@ -92,7 +92,7 @@ export default class CarShopService {
 
     };
 
-    fetch(this.url  + '/' + id, requestOptions)
+    fetch(this.url + '/' + id, requestOptions)
       .then(async response => {
         if (!response.ok) {
           console.log("An Error Occurred");
@@ -104,9 +104,9 @@ export default class CarShopService {
         console.error("There was an error!", error);
       });
 
-      this.allCars();
+    this.allCars();
   }
 
-  
+
 }
 
