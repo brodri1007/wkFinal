@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import CarShopService from '../services/CarShopService';
 
 export default function CarUpdate({ handleClick, car, toggleView, getCars }) {
@@ -23,12 +24,21 @@ export default function CarUpdate({ handleClick, car, toggleView, getCars }) {
     price: price
   };
 
-
+  const updateCarData = async (id, data) => {
+    try {
+      const updatedCar = await service.updateCar(id, data);
+      console.log('Car updated successfully:', updatedCar);
+      // Handle the successful update (e.g., update state or notify the user)
+    } catch (error) {
+      console.error('Error updating car:', error);
+      // Handle the error (e.g., show an error message to the user)
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(updatedCar);
-    service.updateCar(id, updatedCar);
+    updateCarData(id, updatedCar);
     getCars();
     toggleView(id);
   };
@@ -37,66 +47,58 @@ export default function CarUpdate({ handleClick, car, toggleView, getCars }) {
     <Container>
       <div className='row' id={id}>
         <div className='col'>
-          <form>
-            <div>
-              <input
-                type="hidden"
-                id="id"
-                name="id"
-                value={id}
-              />
-              <label htmlFor="brand">Brand:</label>
-              <input
+          <Form onSubmit={handleSubmit} className="p-4 bg-light border rounded">
+            <input
+              type="hidden"
+              id="id"
+              name="id"
+              value={id}
+            />
+            <Form.Group controlId="brand" className="mb-3">
+              <Form.Label>Brand:</Form.Label>
+              <Form.Control
                 type="text"
-                id="brand"
-                name="brand"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
               />
-            </div>
-            <div>
-              <label htmlFor="model">Model:</label>
-              <input
+            </Form.Group>
+            <Form.Group controlId="model" className="mb-3">
+              <Form.Label>Model:</Form.Label>
+              <Form.Control
                 type="text"
-                id="model"
-                name="model"
                 value={model}
                 onChange={(e) => setModel(e.target.value)}
               />
-            </div>
-            <div>
-              <label htmlFor="miles">Miles:</label>
-              <input
+            </Form.Group>
+            <Form.Group controlId="miles" className="mb-3">
+              <Form.Label>Miles:</Form.Label>
+              <Form.Control
                 type="text"
-                id="miles"
-                name="miles"
                 value={miles}
                 onChange={(e) => setMiles(e.target.value)}
               />
-            </div>
-            <div>
-              <label htmlFor="year">Year:</label>
-              <input
+            </Form.Group>
+            <Form.Group controlId="year" className="mb-3">
+              <Form.Label>Year:</Form.Label>
+              <Form.Control
                 type="text"
-                id="year"
-                name="year"
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
               />
-            </div>
-            <div>
-              <label htmlFor="price">Price:</label>
-              <input
+            </Form.Group>
+            <Form.Group controlId="price" className="mb-3">
+              <Form.Label>Price:</Form.Label>
+              <Form.Control
                 type="text"
-                id="price"
-                name="price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
+            </Form.Group>
+            <div className="d-flex justify-content-between">
+              <Button type="submit" variant="primary" className="btn">Update Car</Button>
+              <Button variant="secondary" onClick={() => toggleView(car.id)}>Close</Button>
             </div>
-            <Button onClick={(e) => handleSubmit(e)} className="btn">Update Car</Button>
-            <Button className="btn" onClick={() => toggleView(car.id)}>Close</Button>
-          </form>
+          </Form>
         </div>
       </div>
     </Container>

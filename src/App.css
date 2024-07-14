@@ -113,3 +113,48 @@ ul li {
 .modal-title {
   color: #007bff;
 }
+
+
+.modal-header {
+  background-color: #007bff;
+  color: white;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.modal-body img {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.form-control {
+  margin-bottom: 15px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+
+.app-background {
+  background-image: url('./assets/background.jpg'); /* Update with your image path */
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh; /* Ensure it covers the entire viewport height */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  display: flex;
+  flex-direction: column;
+}
+

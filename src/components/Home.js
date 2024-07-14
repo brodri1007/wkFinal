@@ -5,9 +5,6 @@ import Hero from './Hero'; // Adjust the path according to your project structur
 function Home() {
   return (
     <>
-      <div className='container-fluid row p-5 text-center '>        
-       
-      </div >
       <Hero />
     </>
   );

@@ -22,22 +22,27 @@ export default class CarShopService {
   async updateCar(id, data) {
     try {
       let url = `${this.url}/${id}`;
-      console.log(`Updating details for car id ${id}`);
-
+      // Construct the full URL with the car ID
+  
       const response = await fetch(url, {
-        method: 'PUT',
+        method: 'PUT', // Specify the PUT method
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json', // Indicate the content type is JSON
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data), // Convert the data object to a JSON string
       });
-
-      let json = await response.json();
-      return json;
-
+  
+      if (!response.ok) {
+        // Check if the response is not OK (status code is not in the range 200-299)
+        throw new Error('Network response was not ok');
+      }
+  
+      let json = await response.json(); // Parse the response as JSON
+      return json; // Return the parsed JSON
+  
     } catch (error) {
-      console.error('Failed to update data:', error);
-      throw error; // Re-throw the error if needed, or handle it as per your requirement
+      console.error('Failed to update data:', error); // Log the error to the console
+      throw error; // Re-throw the error for further handling if needed
     }
   }
 

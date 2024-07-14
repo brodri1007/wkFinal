@@ -1,0 +1,27 @@
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .modal-title {
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .car-image {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    font-weight: bold;
+  }
+  
+  .car-details .row {
+    margin-bottom: 10px;
+  }
+  
+  .car-details .col {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
