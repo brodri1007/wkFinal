@@ -9,24 +9,28 @@ import Container from 'react-bootstrap/Container';
 
 function CarCard({ car, getCars, setCarList, carList }) {
 
-
   const service =  new CarShopService();
 
-  const handleApptDelete = (date) => {
+
+  const handleApptDelete = (date) => { //We have to primary key for the appointments in the API, so I'm trying to delete the appointments by date/time
+   
+
+
     try {
-      const updatedCarList = carList.map(c => {
+      const updatedCarList = carList.map(c => { //Filter the carList to find the car id
+
         if (c.id === car.id) {
           return {
-            ...c,
+            ...c, //Filter the list except the test drive appointment with the specified date
             appointment: c.appointment.filter(appt => appt.date !== date)
           };
-        }
-   
-        return c;
+        }   
+      
+        return console.log("C:" + c); //Return the filtered list. 
       });
 
-      setCarList(updatedCarList);      
-      service.updateCar(car.id, updatedCarList);
+      setCarList(updatedCarList);  //Update UI  
+      service.updateCar(car.id, updatedCarList);  //Update the API to reflect the deleted appointment.
      
       
     } catch (error) {
@@ -43,15 +47,15 @@ function CarCard({ car, getCars, setCarList, carList }) {
                         <Card.Body>
                             <Card.Title className="text-center mb-3">{car.year} {car.model}</Card.Title>
                             <div className="">
-                                <CarDetailsModal car={car} setCarList={setCarList} getCars={getCars} />
-                                {/* <Button variant="danger" onClick={() => handleDelete(car.id)}>🗑</Button> */}
+                                <CarDetailsModal car={car} setCarList={setCarList} getCars={getCars} />                                
                             </div>
                         </Card.Body>
                         <Card.Footer>
+                            
                             <div className='appointments'>
                                 <p className='fluid'>Appointments</p>
                                 <ul className='list-unstyled'>
-                                    {car.appointment?.map((appt, i) => {
+                                    {car.appointment?.map((appt, i) => {//Loop over appointments and print with formatted date
                                         const date = new Date(appt.date);
                                         const formattedDate = `${date.getMonth() + 1}/${date.getDate()} @ ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
                                         return (

@@ -11,9 +11,9 @@ const BuyACar = ({ carList, setCarList, getCars }) => {
     <>
       <div className="row p-5 text-center app-background">
 
-        <h1>Find Your Perfect Car</h1>       
-      {carList.length > 0 ? "Browse through our extensive collection of new and used cars." : "There are no cars for sale at this time. Please list some."}      
-     <div> <br></br>   <br></br>   <br></br>   <br></br></div>
+        <h1>Find Your Perfect Car</h1>
+        {carList.length > 0 ? "Browse through our extensive collection of new and used cars." : "There are no cars for sale at this time. Please list some."}
+        <div> <br></br>   <br></br>   <br></br>   <br></br></div>
 
         <Row className="d-fluid justify-content-center">
           {carList?.map((car, i) => (
@@ -22,8 +22,7 @@ const BuyACar = ({ carList, setCarList, getCars }) => {
             </Col>
           ))}
         </Row>
-
-     </div>
+      </div>
     </>
 
   );
