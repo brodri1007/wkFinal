@@ -29,9 +29,10 @@ export default class CarShopService {
         headers: {
           'Content-Type': 'application/json', // Indicate the content type is JSON
         },
-        body: JSON.stringify(data), // Convert the data object to a JSON string
+        body: JSON.stringify(data)
+        // Convert the data object to a JSON string
       });
-  
+      console.log(response) 
       if (!response.ok) {
         // Check if the response is not OK (status code is not in the range 200-299)
         throw new Error('Network response was not ok');

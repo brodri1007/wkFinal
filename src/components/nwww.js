@@ -109,3 +109,63 @@ export default BuyACar;
     //     </Row>   
     //     </Container>
     // </div>
+
+    <Form onSubmit={handleSubmit} >
+              <Form.Group className="mb-3" controlId="brand">
+                <Form.Label>Brand</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter the brand"
+                  value={brand}
+                  onChange={(e) => setBrand(e.target.value)}             />
+
+           
+
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="model">
+                <Form.Label>Model</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter the model"
+                  value={model}
+                  onChange={(e) => setModel(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="miles">
+                <Form.Label>Miles</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="How many miles"
+                  value={miles}
+                  onChange={(e) => setMiles(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="year">
+                <Form.Label>Year</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter the year"
+                  value={year}
+                  onChange={(e) => setYear(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="price">
+                <Form.Label>Price</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter a price"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                />
+              </Form.Group>
+              <div className='d-col'>
+              <Button variant="primary" type="submit">
+                Add a Car
+              </Button>
+              </div>
+
+            </Form>

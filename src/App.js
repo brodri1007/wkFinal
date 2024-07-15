@@ -5,7 +5,6 @@ import CarShopService from './services/CarShopService';
 import Home from '../src/components/Home';
 import BuyACar from '../src/components/BuyACar';
 import SellACar from '../src/components/SellACar';
-import { Container } from 'react-bootstrap';
 import Footer from './components/Footer';
 import { Routes, Route } from 'react-router-dom'
 import './App.css';

@@ -28,6 +28,7 @@ export default function CarUpdate({ handleClick, car, toggleView, getCars }) {
     try {
       const updatedCar = await service.updateCar(id, data);
       console.log('Car updated successfully:', updatedCar);
+      getCars();
       // Handle the successful update (e.g., update state or notify the user)
     } catch (error) {
       console.error('Error updating car:', error);
@@ -36,10 +37,8 @@ export default function CarUpdate({ handleClick, car, toggleView, getCars }) {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(updatedCar);
-    updateCarData(id, updatedCar);
-    getCars();
+    e.preventDefault();    
+    updateCarData(id, updatedCar);    
     toggleView(id);
   };
 

@@ -21,6 +21,8 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
     getCars();
     setShow(false);
   };
+
+
   
   const handleShow = () => setShow(true);
 
@@ -30,6 +32,8 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
     );
   };
 
+
+ 
   const handleTestDriveAppt = (e) => {
     e.preventDefault();
 
@@ -38,14 +42,22 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
       appointment: car.appointment ? [...car.appointment, { email, name, date }] : [{ email, name, date }],
     };
 
-    const service = new CarShopService();
-    service.updateCar(car.id, newApp);
-    updateItem(car.id, newApp);
-    setEmail("");
-    setName("");
-    setDate(new Date());
-    handleClose();
-  };
+    console.log("Email:" + email);
+
+    if (!email || !name || !date) {
+      alert("Please enter the appointment's information to continue.");
+      return;
+    } else {
+      const service = new CarShopService();
+      service.updateCar(car.id, newApp);
+      updateItem(car.id, newApp);
+      setEmail("");
+      setName("");
+      setDate(new Date());
+      handleClose();
+    }
+
+  }
 
   return (
     <>
@@ -58,8 +70,7 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
         </Modal.Header>
         <Modal.Body>
           <img alt={car.model} className="img-fluid car-image" src={CarImg} />
-          <Form onSubmit={handleTestDriveAppt}>
-            <Form.Group className="mb-3 car-details">
+         
               <Row>
                 <Col>Brand:</Col>
                 <Col>{car.brand}</Col>
@@ -76,8 +87,8 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
                 <Col>Miles:</Col>
                 <Col>{car.miles}</Col>
               </Row>
-            </Form.Group>
-
+     
+            <Form onSubmit={handleTestDriveAppt}>            
             <Form.Group className="mb-3">
               <Form.Label className="form-label">Email</Form.Label>
               <Form.Control
@@ -86,9 +97,9 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
-            </Form.Group>
+           
 
-            <Form.Group className="mb-3">
+            
               <Form.Label className="form-label">Name</Form.Label>
               <Form.Control
                 type="text"
@@ -96,9 +107,7 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
                 onChange={(e) => setName(e.target.value)}
                 value={name}
               />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
+           
               <Form.Label className="form-label">Date</Form.Label>
               <DatePicker
                 selected={date}

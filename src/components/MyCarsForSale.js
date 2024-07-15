@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CarShopService from '../services/CarShopService';
 import { Col, Row, Button, Container } from 'react-bootstrap';
-import carImage from './car.png'; // Ensure this path is correct
+import CarImg from '../assets/car.png';
 import CarUpdate from './CarUpdate';
 
 export default function MyCarsForSale({ carList, setCarList, getCars }) {
@@ -33,14 +33,14 @@ export default function MyCarsForSale({ carList, setCarList, getCars }) {
   return (
     <Container>
       <div><h1 className="header">Your Cars</h1></div>
-      <p>These are the cars you have listed for sale in the shop.</p>
+      {carList.length > 0 ? "These are the cars you have listed for sale in the shop." : "There are no cars for sale at this time. Please list some."}  
       <Row>
         {carList?.map((car, i) => (
           <Col md="auto" key={car.id} className="d-md-flex">
             <div className="car-card shadow-sm p-3 mb-4 bg-white rounded">
               <div key={i} className="col p-3 border bg-light rounded">
                 <span>{car.id}</span>
-                <img alt={car.model} src={carImage} className="img-fluid mb-3" style={{ width: '150px' }} /><br></br>
+                <img alt={car.model} src={CarImg} className="img-fluid mb-3" style={{ width: '150px' }} /><br></br>
                 <div id={"D" + car.id}>
                   <strong>Brand:</strong> {car.brand || 'Brand not available'}<br></br>
                   <strong>Model:</strong> {car.model || 'Model not available'}<br></br>

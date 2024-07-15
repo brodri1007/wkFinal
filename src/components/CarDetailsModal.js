@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import CarImg from './car.png';
+import CarImg from '../assets/car.png';
 import Form from 'react-bootstrap/Form';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -13,7 +13,6 @@ import CarShopService from '../services/CarShopService';
 function CarDetailsModal({ car, getCars, setCarList }) {
 
 
-
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
@@ -21,6 +20,15 @@ function CarDetailsModal({ car, getCars, setCarList }) {
 
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
+
+
+  function ClearFormFields() {
+    // Clear form fields
+    setEmail("");
+    setName("");
+    setDate("");
+  }
+
 
   const handleClose = () => {
     getCars();
@@ -53,9 +61,7 @@ function CarDetailsModal({ car, getCars, setCarList }) {
     service.updateCar(car.id, newApp); 
     updateItem(car.id, newApp); 
     getCars();
-    setEmail("");
-    setName("");
-    setDate("");
+    ClearFormFields();
     handleClose();
   };
 
