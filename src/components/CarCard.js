@@ -9,49 +9,49 @@ import Container from 'react-bootstrap/Container';
 
 function CarCard({ car, getCars, setCarList, carList }) {
 
-  const service =  new CarShopService();
+    const service = new CarShopService();
+
+    const handleApptDelete = (apptId, carId) => { //We have to primary key for the appointments in the API, so I'm trying to delete the appointments by date/time
+
+    console.log("Appointment Id, Car Id: " + apptId, carId)
+
+        try {
+            const updatedCarList = carList.map(c => { //Filter the carList to find the car id
+
+                if (c.id === carId) {
+                    return {
+                        ...c, //Filter the list except the test drive appointment with the specified date
+                        appointment: c.appointment.filter(appt => appt.id !== apptId)
+                    };
+                }
+
+                return console.log("C:" + c); //Return the filtered list. 
+            });
+
+            setCarList(updatedCarList);  //Update UI  
+            service.updateCar(car.id, updatedCarList);  //Update the API to reflect the deleted appointment.
 
 
-  const handleApptDelete = (date) => { //We have to primary key for the appointments in the API, so I'm trying to delete the appointments by date/time
-   
-
-
-    try {
-      const updatedCarList = carList.map(c => { //Filter the carList to find the car id
-
-        if (c.id === car.id) {
-          return {
-            ...c, //Filter the list except the test drive appointment with the specified date
-            appointment: c.appointment.filter(appt => appt.date !== date)
-          };
-        }   
-      
-        return console.log("C:" + c); //Return the filtered list. 
-      });
-
-      setCarList(updatedCarList);  //Update UI  
-      service.updateCar(car.id, updatedCarList);  //Update the API to reflect the deleted appointment.
-     
-      
-    } catch (error) {
-      console.error('Error deleting appointment:', error);
-    }
-  };
+        } catch (error) {
+            console.error('Error deleting appointment:', error);
+        }
+    };
 
     return (
         <Container className='d-block'>
-            <Row className='row row-cols-4'>
-                <Col md="auto" className="row row-cols-44">
-                    <Card className="justify-content-center shadow-sm" style={{ borderRadius: '15px' }}>
+            <Row className='row row-cols-4 pt-4'>
+                <Col md="auto" >
+
+                    <Card className="justify-content-center shadow-sm" style={{ borderRadius: '0px' }}>
                         <Card.Img variant="top" className="img-fluid" src={CarImg} />
                         <Card.Body>
                             <Card.Title className="text-center mb-3">{car.year} {car.model}</Card.Title>
                             <div className="">
-                                <CarDetailsModal car={car} setCarList={setCarList} getCars={getCars} />                                
+                                <CarDetailsModal car={car} setCarList={setCarList} getCars={getCars} />
                             </div>
                         </Card.Body>
                         <Card.Footer>
-                            
+
                             <div className='appointments'>
                                 <p className='fluid'>Appointments</p>
                                 <ul className='list-unstyled'>
@@ -60,21 +60,23 @@ function CarCard({ car, getCars, setCarList, carList }) {
                                         const formattedDate = `${date.getMonth() + 1}/${date.getDate()} @ ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
                                         return (
                                             <li key={i} className='my-1 fluid'>
-                                                {formattedDate} <Button onClick={() => handleApptDelete(appt.date)}>🗑</Button>
+                                                {formattedDate} <Button onClick={() => handleApptDelete(appt.id, car.id)}>🗑</Button>
                                             </li>
                                         );
                                     })}
                                 </ul>
                             </div>
+
                         </Card.Footer>
                     </Card>
+                    
                 </Col>
             </Row>
         </Container>
 
 
-   
-  );
+
+    );
 }
 
 export default CarCard;

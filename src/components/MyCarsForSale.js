@@ -17,6 +17,8 @@ export default function MyCarsForSale({ carList, setCarList, getCars }) {
     }
   };
 
+  //Toggle update and view car info display
+
   function toggleView(id) {
     const elD = document.getElementById("D" + id);
     const el = document.getElementById(id);
@@ -33,8 +35,9 @@ export default function MyCarsForSale({ carList, setCarList, getCars }) {
   return (
     <Container>
       <div><h1 className="header">Your Cars</h1></div>
-      {carList.length > 0 ? "These are the cars you have listed for sale in the shop." : "There are no cars for sale at this time. Please list some."}  
+      {carList.length > 0 ? <>{"These are the cars you have listed for sale in the shop."}<br></br> <br></br> </> : "There are no cars for sale at this time. Please list some."}  
       <Row>
+        
         {carList?.map((car, i) => (
           <Col md="auto" key={car.id} className="d-md-flex">
             <div className="car-card shadow-sm p-3 mb-4 bg-white rounded">
@@ -57,13 +60,14 @@ export default function MyCarsForSale({ carList, setCarList, getCars }) {
                     </Button>
                   </div>
                 </div>
-                <span id={car.id} style={{ display: "none" }}>
+                <div id={car.id} style={{ display: "none" }}>
                   <CarUpdate car={car} toggleView={toggleView} getCars={getCars} />
-                </span>
+                </div>
               </div>
             </div>
           </Col>
         ))}
+
       </Row>
     </Container>
   );

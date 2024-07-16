@@ -1,6 +1,6 @@
 // components/Home.js
 import React from 'react';
-import Hero from './Hero'; // Adjust the path according to your project structure
+import Hero from './Hero'; 
 
 function Home() {
   return (
