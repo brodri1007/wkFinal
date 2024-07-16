@@ -5,14 +5,22 @@ import 'react-datepicker/dist/react-datepicker.css';
 import CarImg from '../assets/car.png';
 import CarShopService from '../services/CarShopService';
 
-function CarDetailsModal({ car, getCars, setCarList, carList }) {
-  
-  const [apptId, setApptId] = useState(car.appointment.length++ || 1);
+function CarDetailsModal({ car, getCars, setCarList}) {
+
+  const [apptId, setApptId] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [date, setDate] = useState(null); // Use null for initial state of DatePicker
-
+  const [date, setDate] = useState(null);
   const [show, setShow] = useState(false);
+
+  console.log(car.length)  
+
+  useEffect(() => {
+    setApptId(car.appointment? car.appointment.length + 1 : 1)
+    }, [car.appointment]);
+  
+ 
+
   const handleShow = () => setShow(true);
 
   const handleClose = () => {
@@ -24,7 +32,7 @@ function CarDetailsModal({ car, getCars, setCarList, carList }) {
   const clearFormFields = () => {
     setEmail("");
     setName("");
-    setDate(null); // Reset date to null
+    setDate(null);
   };
 
   const updateItem = (id, newApp) => {
@@ -35,28 +43,21 @@ function CarDetailsModal({ car, getCars, setCarList, carList }) {
     );
   };
 
-  useEffect(() => {
-    console.log("Updated CarList", carList);
-  }, [carList]);
-
-
   const handleTestDriveAppt = (e) => {
     e.preventDefault();
 
+    if (!email || !name || !date) {
+      alert("Please fill out all fields.");
+      return;
+    }
+
+    const newAppointment = { apptId, email, name, date };
     const newApp = {
-      id: car.id,
-      model: car.model,
-      brand: car.brand,
-      year: car.year,
-      price: car.price,
-      miles: car.miles,
-      sellerid: car.sellerid,
-      appointment: car.appointment
-        ? [...car.appointment, { apptId, email, name, date }]
-        : [apptId, email, name, date],
+      ...car,
+      appointment: car.appointment ? [...car.appointment, newAppointment] : [newAppointment],
     };
 
-    console.log(newApp)
+    console.log(newApp);
     const service = new CarShopService();
     service.updateCar(car.id, newApp)
       .then(() => {
@@ -95,15 +96,14 @@ function CarDetailsModal({ car, getCars, setCarList, carList }) {
             <Col><strong>Miles:</strong></Col>
             <Col>{car.miles}</Col>
           </Row>
-          <br></br> <br></br> <br></br>
+          <br /><br /><br />
           <h3>WANT TO TEST DRIVE IT?</h3>
-          <br></br>
+          <br />
           <Form onSubmit={handleTestDriveAppt}>
             <Form.Group className="mb-3">
-            <Form.Control
+              <Form.Control
                 type="hidden"
                 name="apptId"
-                onChange={(e) => setApptId(e.target.value)}
                 value={apptId}
               />
               <Form.Label className="form-label">Email</Form.Label>

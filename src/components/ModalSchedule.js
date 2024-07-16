@@ -1,29 +1,22 @@
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
+import { Button, Form, Modal, Col, Row } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CarShopService from '../services/CarShopService';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import CarImg from './car.png';
-import './ModalSchedule.css';
-
+import CarImg from '../assets/car.png'; // Ensure correct path to the image
+import './ModalSchedule.css'; // Ensure custom styles are loaded
 
 export default function ModalSchedule({ car, setCarList, getCars }) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
-  
+
   const handleClose = () => {
     getCars();
     setShow(false);
   };
 
-
-  
   const handleShow = () => setShow(true);
 
   const updateItem = (id, newApp) => {
@@ -32,36 +25,35 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
     );
   };
 
-
- 
-  const handleTestDriveAppt = (e) => {
+  const handleTestDriveAppt = async (e) => {
     e.preventDefault();
+
+    if (!email || !name || !date) {
+      alert("Please enter all appointment information to continue.");
+      return;
+    }
 
     const newApp = {
       ...car,
       appointment: car.appointment ? [...car.appointment, { email, name, date }] : [{ email, name, date }],
     };
 
-    console.log("Email:" + email);
-
-    if (!email || !name || !date) {
-      alert("Please enter the appointment's information to continue.");
-      return;
-    } else {
+    try {
       const service = new CarShopService();
-      service.updateCar(car.id, newApp);
+      await service.updateCar(car.id, newApp);
       updateItem(car.id, newApp);
       setEmail("");
       setName("");
       setDate(new Date());
       handleClose();
+    } catch (error) {
+      console.error('Error updating car:', error);
     }
-
-  }
+  };
 
   return (
     <>
-         <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" onClick={handleShow}>
         Car Details
       </Button>
       <Modal show={show} onHide={handleClose}>
@@ -70,25 +62,23 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
         </Modal.Header>
         <Modal.Body>
           <img alt={car.model} className="img-fluid car-image" src={CarImg} />
-         
-              <Row>
-                <Col>Brand:</Col>
-                <Col>{car.brand}</Col>
-              </Row>
-              <Row>
-                <Col>Model:</Col>
-                <Col>{car.model}</Col>
-              </Row>
-              <Row>
-                <Col>Year:</Col>
-                <Col>{car.year}</Col>
-              </Row>
-              <Row>
-                <Col>Miles:</Col>
-                <Col>{car.miles}</Col>
-              </Row>
-     
-            <Form onSubmit={handleTestDriveAppt}>            
+          <Row>
+            <Col>Brand:</Col>
+            <Col>{car.brand}</Col>
+          </Row>
+          <Row>
+            <Col>Model:</Col>
+            <Col>{car.model}</Col>
+          </Row>
+          <Row>
+            <Col>Year:</Col>
+            <Col>{car.year}</Col>
+          </Row>
+          <Row>
+            <Col>Miles:</Col>
+            <Col>{car.miles}</Col>
+          </Row>
+          <Form onSubmit={handleTestDriveAppt}>
             <Form.Group className="mb-3">
               <Form.Label className="form-label">Email</Form.Label>
               <Form.Control
@@ -97,9 +87,6 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
-           
-
-            
               <Form.Label className="form-label">Name</Form.Label>
               <Form.Control
                 type="text"
@@ -107,7 +94,6 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
                 onChange={(e) => setName(e.target.value)}
                 value={name}
               />
-           
               <Form.Label className="form-label">Date</Form.Label>
               <DatePicker
                 selected={date}
@@ -117,7 +103,6 @@ export default function ModalSchedule({ car, setCarList, getCars }) {
                 className="form-control"
               />
             </Form.Group>
-
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Close

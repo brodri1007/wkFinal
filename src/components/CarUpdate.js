@@ -4,41 +4,38 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import CarShopService from '../services/CarShopService';
 
-export default function CarUpdate({ handleClick, car, toggleView, getCars }) {
-
-  const service = new CarShopService();
-
-  const [id, setId] = useState(car.id);
+export default function CarUpdate({ car, toggleView, getCars }) {
+  const [id] = useState(car.id);
   const [brand, setBrand] = useState(car.brand);
   const [model, setModel] = useState(car.model);
   const [miles, setMiles] = useState(car.miles);
   const [year, setYear] = useState(car.year);
   const [price, setPrice] = useState(car.price);
 
+  const service = new CarShopService();
+
   const updatedCar = {
-    id: id,
-    brand: brand,
-    model: model,
-    miles: miles,
-    year: year,
-    price: price
+    id,
+    brand,
+    model,
+    miles,
+    year,
+    price,
   };
 
   const updateCarData = async (id, data) => {
     try {
-      const updatedCar = await service.updateCar(id, data);
-      console.log('Car updated successfully:', updatedCar);
+      await service.updateCar(id, data);
+      console.log('Car updated successfully');
       getCars();
-      // Handle the successful update (e.g., update state or notify the user)
     } catch (error) {
       console.error('Error updating car:', error);
-      // Handle the error (e.g., show an error message to the user)
     }
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();    
-    updateCarData(id, updatedCar);    
+    e.preventDefault();
+    updateCarData(id, updatedCar);
     toggleView(id);
   };
 
@@ -72,7 +69,7 @@ export default function CarUpdate({ handleClick, car, toggleView, getCars }) {
             <Form.Group controlId="miles" className="mb-3">
               <Form.Label>Miles:</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 value={miles}
                 onChange={(e) => setMiles(e.target.value)}
               />
@@ -80,7 +77,7 @@ export default function CarUpdate({ handleClick, car, toggleView, getCars }) {
             <Form.Group controlId="year" className="mb-3">
               <Form.Label>Year:</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
               />
@@ -88,13 +85,13 @@ export default function CarUpdate({ handleClick, car, toggleView, getCars }) {
             <Form.Group controlId="price" className="mb-3">
               <Form.Label>Price:</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Form.Group>
             <div className="d-flex justify-content-between">
-              <Button type="submit" variant="primary" className="btn">Update Car</Button>
+              <Button type="submit" variant="primary">Update Car</Button>
               <Button variant="secondary" onClick={() => toggleView(car.id)}>Close</Button>
             </div>
           </Form>
