@@ -15,7 +15,7 @@ const BuyACar = ({ carList, setCarList, getCars }) => {
     <main className="p-5 text-center app-background">
       <h1>Find Your Perfect Car</h1>
       {carList.length > 0 ? (
-        <p>Browse through our extensive collection of new and used cars.</p>
+        <h3 className="lead text-primary">Browse through our extensive collection of new and used cars.</h3>
       ) : (
         <>
           <p>There are no cars for sale at this time. Please list some.</p>

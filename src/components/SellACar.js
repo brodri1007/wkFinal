@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { Container, Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
 import MyCarsForSale from './MyCarsForSale';
 import CarShopService from '../services/CarShopService';
+import Alert from 'react-bootstrap/Alert';
+import Badge from 'react-bootstrap/Badge';
 
 function SellACar({ carList, setCarList, getCars }) {
+
   const service = new CarShopService();
 
   const [brand, setBrand] = useState('');
@@ -118,7 +121,9 @@ function SellACar({ carList, setCarList, getCars }) {
                 />
               </Form.Group>
               <Button variant="primary" type="submit">
+              
                 Add a Car
+              
               </Button>
             </Form>
           </Col>
