@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './Hero.css'; // Assuming you have a CSS file for custom styles
+// Assuming you have a CSS file for custom styles
 
 function Hero() {
   return (

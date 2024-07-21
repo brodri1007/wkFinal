@@ -1,0 +1,275 @@
+<header id="header" class="transparent-light" role="banner" style="display:block">
+    <div class="store-chooser-wrapper" id="store-chooser-wrapper">
+        <div class="store-chooser-background-modal"></div>
+        <div class="store-chooser-modal" id="store-chooser-modal" role="dialog"
+            aria-labelledby="store-chooser-modal_header-title"
+            aria-describedby="store-chooser-modal_header-description">
+            <div class="store-chooser-modal_header" id="store-chooser-modal_header">
+                <h2 class="store-chooser-modal_header-title kmx-typography--display-2"
+                    id="store-chooser-modal_header-title">Select your store</h2>
+                <p class="hidden" id="store-chooser-modal_header-description">You can change your store in this dialog
+                    and have the carmax experience update accordingly.</p><button
+                    class="store-chooser-modal_header-close" type="button" aria-label="close" aria-hidden="false"><svg
+                        class="store-chooser-modal_header-close-icon-svg" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+                        </path>
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                    </svg></button>
+            </div>
+            <form class="store-chooser-modal_search-form" id="store-chooser-keyword-search-form"><input
+                    class="store-chooser-modal_search-form-input kmx-typography--body-1"
+                    id="store-chooser-keyword-input" name="keyword" placeholder="Enter ZIP or State"
+                    maxlength="25"><button class="store-chooser-modal_search-form-button" aria-label="Set My Store"
+                    aria-hidden="false" type="submit"><svg class="store-chooser-modal_search-form-button-svg"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path
+                            d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 10-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0a4.5 4.5 0 11-.01-8.99A4.5 4.5 0 019.5 14z">
+                        </path>
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                    </svg></button></form>
+            <div class="store-chooser-modal-body" id="store-chooser-modal-body"></div>
+        </div>
+    </div>
+    <nav class="header-nav" aria-label="primary">
+        <!-- Left nav -->
+        <section class="header-nav-left">
+            <a href="/" class="header-link" data-kmx-analytics="prop5=Header" aria-label="CarMax home page">
+                <!-- CarMax logo -->
+                <svg class="header-main-logo" height="24" width="123" viewBox="0 0 327.84 64"
+                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path fill="#053361"
+                        d="M289.8 5.05a1.1 1.1 0 0 0 .85-1.12c0-1.17-1.23-1.17-1.57-1.17h-1.65V7.4h.64V5.3h.8c.76 0 .94.2 1 .9a5.26 5.26 0 0 0 .23 1.2h.66a6.74 6.74 0 0 1-.28-1.46c-.05-.57-.2-.77-.7-.9zm-.72-.3h-1V3.3h1c.34 0 .92 0 .92.74s-.6.7-.92.7zM289 .8a4.33 4.33 0 1 0 4.32 4.32A4.34 4.34 0 0 0 289 .8zm0 8.2a3.83 3.83 0 1 1 3.8-3.84A3.82 3.82 0 0 1 289 9z">
+                    </path>
+                    <path fill="#053361"
+                        d="M129.42 54.55h32.32V64h-32.32v-9.45zm41.53 0V64h32.32v-9.45zm41.52 0V64h32.32v-9.45zm41.52 0V64h32.3v-9.45zm41.52 0V64h32.32v-9.45z">
+                    </path>
+                    <path fill="#053361"
+                        d="M129.57 42.43V1.23h16.26l.4 6.24h.15c2.82-5.9 7-7.47 10.88-7.47 5.3 0 9.16 2.38 11.3 7.47 2.82-5.9 7-7.47 10.88-7.47 7 0 12 4.1 12 15v27.43h-16.7V16.58c0-2.87-1.3-4.43-2.88-4.43s-3 1.3-3 4.6v25.68h-16.7V16.58c0-2.87-1.3-4.43-2.9-4.43s-3 1.3-3 4.6v25.68zm138.26 0h16.75l-11.48-22 9.35-19H265l-4.64 13-5.6-13H237.3l10.16 19-11.15 22h16.95l7.1-15 7.48 15zm-48.7-14.2V24.8h-2.6c-5.1 0-6.2 2.46-6.2 4.74 0 2.62 1.5 4.25 4.44 4.25 3.34 0 4.37-2.2 4.37-5.56zm0-11.32v-4.23c0-2-1-3.27-3.72-3.27-2.37 0-3.65.82-3.88 4.25h-15.86c.64-11 10.5-13.4 20.57-13.4 15.33 0 20.25 5 20.25 14.54v27.6h-16.85l-.5-3.88c-2.78 3.76-7 5.15-11.36 5.15-8.1 0-13.8-4.4-13.8-12.5 0-10.12 7.93-14.3 22.86-14.3z">
+                    </path>
+                    <path fill="#053361"
+                        d="M25.18 27.16H40.5c0 11.38-9.1 16.35-19.32 16.35C6.7 43.5 0 34.7 0 21.6-.38 8.75 7.28.06 21.23.06c10.4 0 19.22 4.23 19.28 16.36h-15c-.22-4.68-1.93-5.6-3.93-5.6-4.24 0-4.64 4.35-4.64 11 0 6.3.35 11 4.46 11 2.1 0 3.54-1.26 3.77-5.6zm78.18-8.77h1.37c3.15 0 5.43-1.1 5.43-4.18s-2.1-3.66-5.3-3.66h-1.5v7.83zm-16 24V1.2h24.4c8.84 0 14 2.68 14 10.45 0 4.74-2 8.34-8.18 9.94 4 .33 6.17 2.1 7 5.24.9 3.54 1.3 8.08 2.07 15.6h-16c-1.5-9.25-.88-8.3-1.45-11.83-.35-2.05-1.37-2.85-4-2.85h-1.9v14.68zM58.53 25.72h7l-3.4-15.55-3.6 15.55zm-19.8 16.7L52 1.13h21.17l13.27 41.3H69.5l-1.6-6.64H56.08l-1.66 6.63z">
+                    </path>
+                </svg>
+            </a>
+            <!--  menu flyout -->
+            <div class="header-drawer-container">
+                <aside class="header-drawer" id="header-nav-menu" title="header-drawer">
+                    <div class="header-drawer-body">
+                        <a id="header-drawer-focus-start" data-dialog="focus-start" href="/cars" class="header-link"
+                            data-kmx-analytics="prop5=Header | searchInit">Shop</a>
+                        <a id="header-sell-link" href="/sell-my-car" class="header-link"
+                            data-kmx-analytics="prop5=Header">Sell/Trade</a>
+                        <a id="header-finance-link" href="/car-financing" class="header-link"
+                            data-kmx-analytics="prop5=Header">Finance</a>
+                        <!-- More links menu -->
+                        <section class="header-helpful-links-section">
+                            <button id="header-helpful-links-button" aria-haspopup="true"
+                                aria-controls="header-helpful-links-menu" aria-label="Open buy links menu"
+                                class="header-footer-icon-button" type="button" data-kmx-analytics="prop5=Header"
+                                aria-expanded="false">
+                                <span class="header-helpful-links-title">More</span>
+                                <!-- Arrow drop down icon -->
+                                <svg class="header-footer-icon-button-icon mobile-hidden" width="16px" height="16px"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M7 10l5 5 5-5z"></path>
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                </svg>
+
+                                <!-- Keyboard arrow drop down icon -->
+                                <svg class="header-helpful-links-button-icon tablet-hidden desktop-hidden" height="24"
+                                    width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true">
+                                    <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path>
+                                    <path d="M0-.75h24v24H0z" fill="none"></path>
+                                </svg>
+                            </button>
+                            <div class="header-footer-menu-container">
+                                <div id="header-helpful-links-menu" role="menu"
+                                    aria-labelledby="header-helpful-links-button" class="header-footer-menu"></div>
+                            </div>
+                        </section>
+                    </div>
+                </aside>
+                <div class="header-drawer-scrim"></div>
+            </div>
+        </section>
+        <!-- Right nav -->
+        <section class="header-nav-right">
+            <!-- My store flyout -->
+            <div class="header-my-store-section">
+                <button id="header-my-store-button" aria-haspopup="true" aria-controls="header-my-store-menu"
+                    aria-label="Open my store flyout" class="header-footer-icon-button visible"
+                    data-kmx-analytics="prop5=Header"><svg class="header-footer-icon" width="40" height="40"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path
+                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z">
+                        </path>
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                        <circle class="hidden header-footer-location-icon-alert-circle" cx="19" cy="4" r="4"
+                            stroke="white" stroke-width="1"></circle>
+                    </svg>
+                    <div class="header-footer-flyout-button-text-container">
+                        <span id="header-my-store-button-zipCode">Your store for 33172</span>
+                        <div class="header-find-your-store-container">
+                            <span id="header-my-store-button-text">Doral</span>
+                            <svg class="header-footer-icon--secondary" width="20" height="15" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M7 10l5 5 5-5z"></path>
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </button>
+                <div class="header-footer-menu-container">
+                    <div id="header-my-store-menu" aria-modal="true" role="dialog"
+                        aria-labelledby="header-my-store-button" class="header-footer-menu">
+                        <div id="header-my-store-details" class="header-footer-my-store-details">
+                            <div class="header-footer-my-store-details-header">Your store for 33172:</div>
+                            <div class="header-footer-my-store-details-store-name"><span>Doral<span aria-label="0 miles"
+                                        class="header-footer-my-store-details-distance"></span></span><span></span>
+                            </div> <a tabindex="0" data-kmx-analytics="prop5=Header-Location" data-dialog="focus-start"
+                                class="header-footer-my-store-details-link" href="/stores/7110">View more store
+                                details</a>
+                            <div class="header-footer-my-store-details-info-section">
+                                <div class="header-footer-my-store-details-address">1300 NW 98th Court<br>Doral, FL
+                                    33172</div> <button class="header-footer-my-store-details-store-hours-button"
+                                    data-kmx-analytics="prop5=Header-Location">
+                                    <span class="store-status-text currently closed">Currently Closed
+                                    </span><span class="store-status-hours">Today: 10 AM - 9 PM
+                                    </span> <span class="icon-wrapper"><svg class="dropdownIcon" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path d="M7 10l5 5 5-5z"></path>
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                        </svg></span></button>
+                            </div>
+                            <div class="header-footer-my-store-details-store-hours-menu">
+                                <div key="7110-0">Sun: 12 PM - 7 PM</div>
+                                <div key="7110-1">Mon-Fri: 10 AM - 9 PM</div>
+                                <div key="7110-2">Sat: 9 AM - 9 PM</div>
+                            </div>
+                            <a rel="nofollow" tabindex="0" class="header-footer-my-store-details-inventory-link"
+                                data-kmx-analytics="prop5=Header-Location | searchInit" href="/cars/7110">
+                                See cars at this store
+                            </a>
+                        </div>
+                        <div class="header-footer-store-search-bar">
+                            <form class="header-footer-store-search-bar-form" role="search"
+                                id="header-store-search-form" onsubmit="event.preventDefault()"> <label
+                                    for="header-store-search">Change your store</label>
+                                <div class="header-footer-store-search-bar-container"> <input tabindex="0"
+                                        id="header-store-search-form-input" name="keyword"
+                                        class="header-footer-store-search-bar-input" type="search"
+                                        placeholder="Enter ZIP or State" autocomplete="off" value="">
+                                    <div class="header-search-bar-button-container"> <button
+                                            data-kmx-analytics="prop5=Header-Location" tabindex="0"
+                                            data-dialog="focus-end" id="header-store-search-button"
+                                            aria-label="Search for CarMax stores." type="submit"
+                                            class="header-footer-icon-button"> <svg width="24" height="24"
+                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+                                                </path>
+                                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                            </svg> </button> </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Saved cars link -->
+            <button id="header-saved-cars-button" aria-label="My saved cars" class="header-footer-icon-button"
+                data-kmx-analytics="prop5=Header">
+                <!-- Favorite icon -->
+                <svg class="header-footer-icon header-footer-icon--priority" width="40px" height="40px"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
+                    </path>
+                </svg>
+            </button>
+            <!-- My profile menu -->
+            <div class="header-my-profile-section">
+                <button id="header-my-profile-button" aria-haspopup="true" aria-controls="header-my-profile-menu"
+                    aria-label="Go to my profile page" class="header-footer-icon-button"
+                    data-kmx-analytics="prop5=Header">
+                    <!-- Person icon -->
+                    <svg class="header-footer-icon" width="40" height="40" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path
+                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z">
+                        </path>
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                    </svg>
+                </button>
+                <div class="header-footer-menu-container">
+                    <div id="header-my-profile-menu" role="menu" aria-labelledby="header-my-profile-button"
+                        class="header-footer-menu">
+                        <ul class="header-footer-menu-list" role="menu" tabindex="-1" aria-hidden="true"
+                            aria-orientation="vertical">
+                            <li class="header-footer-menu-list-item" role="menuitem" tabindex="-1"><a rel="nofollow"
+                                    class="payment-link" data-kmx-analytics="prop5=Header-Profile"
+                                    href="https://www4.carmax.com/account/summary">Make a Payment</a></li>
+                            <li class="header-footer-menu-list-item header-footer-menu-list-item__delineated-link"
+                                role="menuitem" tabindex="-1">
+                                <div class="header-footer-menu-list-item"><a tabindex="-1" class="header-link"
+                                        data-kmx-analytics="prop5=Header-Profile"
+                                        href="/mycarmax/sign-in?returnUrl=https%3A%2F%2Fwww.carmax.com%2F">Sign in</a>
+                                </div>
+                            </li>
+                            <li class="header-footer-menu-list-item" role="menuitem" tabindex="-1"><a tabindex="-1"
+                                    class="header-link" data-kmx-analytics="prop5=Header-Profile"
+                                    href="/mycarmax/register">Register</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </nav>
+    <!-- Search bar -->
+    <section id="header-search-bar" class="header-search-bar">
+        <form id="header-search-bar-form" class="header-search-bar-form" role="search" method="GET" action="/cars">
+            <fieldset class="header-search-bar-form-fieldset">
+                <div class="header-search-bar-container">
+                    <label for="header-inventory-search" class="visually-hidden">Search make, model, or keyword</label>
+                    <input id="header-inventory-search" name="search" class="header-search-bar-input" type="search"
+                        placeholder="Search by make, model, or keyword"
+                        aria-placeholder="Search by make, model, or keyword" autocomplete="off" value=""
+                        maxlength="100">
+                    <div class="header-search-bar-button-container">
+                        <button id="header-search-button" aria-label="Submit search by Make, Model, or Keyword"
+                            type="submit" class="header-footer-icon-button" data-kmx-analytics="noClickTrack">
+                            <!-- Search icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true">
+                                <path
+                                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+                                </path>
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="header-search-animated-categories">
+                        <div aria-hidden="true" class="header-search-animated-category">make</div>
+                        <div aria-hidden="true" class="header-search-animated-category">model</div>
+                        <div aria-hidden="true" class="header-search-animated-category">keyword</div>
+                        <div aria-hidden="true" class="header-search-animated-category">make</div>
+                        <div aria-hidden="true" class="header-search-animated-category">model</div>
+                        <div aria-hidden="true" class="header-search-animated-category">keyword</div>
+                        <div aria-hidden="true" class="header-search-animated-category">make</div>
+                        <div aria-hidden="true" class="header-search-animated-category">model</div>
+                        <div aria-hidden="true" class="header-search-animated-category">keyword</div>
+                        <div aria-hidden="true" class="header-search-animated-category">make, model, or keyword</div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <div class="header-footer-menu-container">
+            <div id="header-search-bar-menu" class="header-footer-menu" tabindex="-1"></div>
+        </div>
+    </section>
+</header>

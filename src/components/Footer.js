@@ -8,7 +8,7 @@ function Footer() {
         <Row>
           <Col>
             © 2024 The CarShop: 
-            <a className="text-dark" href="#"> thecarshop.com</a>
+            <a className="text-dark" href="/"> thecarshop.com</a>
           </Col>
         </Row>
       </Container>

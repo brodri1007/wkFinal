@@ -1,40 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CarImg from '../assets/car.png';
 import CarShopService from '../services/CarShopService';
 import Table from 'react-bootstrap/Table';
 
+/**
+ * CarDetailsModal. This component provides a modal interface for scheduling a test drive appointment for a car.
+
+ * @param {String} car Car to be displayed.
+ * @param {Function} getCars This function calls the allCars method of the CarShopService 
+ * instance to fetch the list of all cars. It then updates the carList state with the fetched data.
+ * @param {Function} setCarList Function to update local storage.
+ */
+
+const { v4: uuidv4 } = require('uuid');
+//Uses uuidv4 to generate unique IDs for the new car and seller ID.
+const uuid = uuidv4();
+
+
 function CarDetailsModal({ car, getCars, setCarList }) {
 
+  //initialize the state variables for appointment ID, email, name, date, and modal visibility
   const [apptId, setApptId] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [date, setDate] = useState(null);
   const [show, setShow] = useState(false);
 
-
   useEffect(() => {
-    setApptId(car.appointment ? car.appointment.length + 1 : 1)
+    setApptId(uuid)
   }, [car.appointment]);
 
-
-
+ //HandleShow sets the modal to visible.
   const handleShow = () => setShow(true);
 
+  //HandleClose fetches updated car data, clears the form fields, and hides the modal.
   const handleClose = () => {
     getCars();
     clearFormFields();
     setShow(false);
   };
 
+  //Resets the form fields.
   const clearFormFields = () => {
     setEmail("");
     setName("");
     setDate(null);
   };
 
+
+  //This function updates the car list with the new appointment details.
   const updateItem = (id, newApp) => {
     setCarList((prevItems) =>
       prevItems.map((item) =>
@@ -42,6 +59,10 @@ function CarDetailsModal({ car, getCars, setCarList }) {
       )
     );
   };
+
+
+  //This function handles the form submission, validates the input, creates
+  // a new appointment, updates the car data, and handles any errors.
 
   const handleTestDriveAppt = (e) => {
     e.preventDefault();
@@ -69,6 +90,7 @@ function CarDetailsModal({ car, getCars, setCarList }) {
       });
   };
 
+  //The modal includes car details, a form for scheduling a test drive, and buttons for closing and submitting the form.
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -126,7 +148,11 @@ function CarDetailsModal({ car, getCars, setCarList }) {
                   <td className='pt-0'>   <DatePicker
                 selected={date}
                 onChange={(date) => setDate(date)}
-                showTimeSelect
+                minDate={new Date()}
+                timeFormat="HH:mm"
+                timeIntervals={30}
+                timeCaption="Time"
+                showTimeSelect            
                 dateFormat="Pp"
                 className="form-control small-form-control"
               /></td>
@@ -144,8 +170,7 @@ function CarDetailsModal({ car, getCars, setCarList }) {
             </Modal.Footer>
           </Form>
         </Modal.Body>
-      </Modal>
-    </>
+      </Modal>   </>
   );
 }
 

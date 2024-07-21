@@ -4,7 +4,20 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import CarShopService from '../services/CarShopService';
 
+
+/**
+ * CarUpdate. This component allows the user to update car details and submit the updated data to a service.
+ * 
+ * @param {String} car Car to be displayed.
+ * @param {Boolean Function} toggleView Function to re-render the UI after Appointment is deleted. 
+ * @param {Function} getCars This function calls the allCars method of the CarShopService 
+ * instance to fetch the list of all cars. It then updates the carList state with the fetched data.
+ *
+ */
+
 export default function CarUpdate({ car, toggleView, getCars }) {
+
+//The state variables are initialized with the current car details, allowing them to be edited.
   const [id] = useState(car.id);
   const [brand, setBrand] = useState(car.brand);
   const [model, setModel] = useState(car.model);
@@ -14,6 +27,7 @@ export default function CarUpdate({ car, toggleView, getCars }) {
 
   const service = new CarShopService();
 
+//The updatedCar object is constructed with the state variables to send the updated data.
   const updatedCar = {
     id,
     brand,
@@ -23,6 +37,8 @@ export default function CarUpdate({ car, toggleView, getCars }) {
     price,
   };
 
+
+  //This function handles updating the car data using the CarShopService. It also calls getCars to refresh the car list after a successful update.
   const updateCarData = async (id, data) => {
     try {
       await service.updateCar(id, data);
@@ -33,6 +49,8 @@ export default function CarUpdate({ car, toggleView, getCars }) {
     }
   };
 
+
+  //The form submission is handled here, preventing the default form action, calling the update function, and toggling the view back.
   const handleSubmit = (e) => {
     e.preventDefault();
     updateCarData(id, updatedCar);
